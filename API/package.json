@@ -1,0 +1,23 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "API ingreso MELI",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnchiacchio/meli-challenge.git"
+  },
+  "author": "Marcos Chiacchio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mnchiacchio/meli-challenge/issues"
+  },
+  "homepage": "https://github.com/mnchiacchio/meli-challenge#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
+}
