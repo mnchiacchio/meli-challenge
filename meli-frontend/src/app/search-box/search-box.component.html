@@ -1,0 +1,6 @@
+<div class="header-navbar">
+    <input #inputsearch type="text" (keyup.enter)="search();"/>
+</div>
+<div *ngIf="route !== '/'">
+    <router-outlet></router-outlet>
+</div>
