@@ -1,6 +1,10 @@
-var router = require('express').Router()
-var item_controller = require("../controllers/item.controller");
+const { Router } = require('express')
 
-router.get('/', item_controller.items_search);
+module.exports = ( { ItemController }) => {
+    const router = Router();
+    
+    router.get("/items", ItemController.searchItems.bind(ItemController));
+    router.get("/items/:id", ItemController.getItemById.bind(ItemController));
 
-module.exports = router
+    return router;
+}
