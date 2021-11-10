@@ -19,12 +19,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params)=>{
-      this.getTextFromUrl();
+      this.setTextBasedOnUrl();
     });
     
   }
 
-  getTextFromUrl() {
+  setTextBasedOnUrl() {
       let url = new URL(location.href);
       let params:any = url.searchParams;
       let searchParam = params.get("search");

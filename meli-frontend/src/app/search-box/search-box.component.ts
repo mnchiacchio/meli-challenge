@@ -23,10 +23,9 @@ export class SearchBoxComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    
   }
   ngAfterViewInit() {
-    debugger
     if(this.text && this.input){
       this.input.nativeElement.value = this.text;
     }

@@ -1,5 +1,8 @@
-<div class="header-navbar">
-    <input #inputsearch type="text" (keyup.enter)="search();"/>
+<div class="header-container">
+    <div class="header-navbar">
+        <img src="../../assets/img/Logo_ML.png" />
+        <input #inputsearch type="text" placeholder="Nunca dejes de buscar" (keyup.enter)="search();"/>
+    </div>
 </div>
 <div *ngIf="route !== '/'">
     <router-outlet></router-outlet>

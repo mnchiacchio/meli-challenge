@@ -18,19 +18,17 @@ export class SearchResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params)=>{
-      this.configureBasedOnUrl();
+      this.setTextBasedOnUrl();
     });
     
   }
 
   
-  configureBasedOnUrl() {
-      debugger;
+  setTextBasedOnUrl() {
       let url = new URL(location.href);
       let params:any = url.searchParams;
       let searchParam = params.get("search");
       this.searchText = searchParam;
-      
   }
 
 }
