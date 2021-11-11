@@ -1,0 +1,10 @@
+<div class="categories-content">
+    <ul *ngIf="categories">
+        <li *ngFor="let category of categories;let last = last">
+            <span [ngClass]="{last: last}" >{{category}} </span>
+            <svg *ngIf="!last" xmlns="http://www.w3.org/2000/svg" width="6" height="8">
+                <path fill="none" d="M1 0l4 4-4 4"></path>
+            </svg>
+        </li>
+    </ul>
+</div>

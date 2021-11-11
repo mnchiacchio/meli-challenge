@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ItemDetailModel } from '../models/item-detail.model';
+import { ItemResponseModel } from '../models/item-response.model';
+import { ItemsService } from '../services/items.service';
 
 @Component({
   selector: 'app-item-detail',
@@ -7,8 +10,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./item-detail.component.sass']
 })
 export class ItemDetailComponent implements OnInit {
-  idItem: string | undefined;
-  constructor(private activatedRoute: ActivatedRoute) { 
+  item: ItemDetailModel | undefined;
+  itemResponse: ItemResponseModel | undefined;
+  categories: [string] | undefined;
+  loading: boolean = true;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private itemsService: ItemsService
+    ) { 
     this.activatedRoute.params.subscribe((oParam) => {
       this.searchItem(oParam.id);
     })
@@ -19,8 +29,13 @@ export class ItemDetailComponent implements OnInit {
   }
 
   searchItem(itemId: string){
-    debugger;
-    this.idItem = itemId;
+    this.loading = true;
+    this.categories = [""];
+      this.itemsService.getItem(itemId).subscribe((result) =>{
+        this.item = result.item;
+        this.categories = result.categories;
+        this.loading = false;
+      })
   }
 
 }

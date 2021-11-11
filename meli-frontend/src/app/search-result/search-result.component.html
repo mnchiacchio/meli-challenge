@@ -1,4 +1,40 @@
-<div>
-    <p>Search Result Component</p>
-    <p>Buscando <b>{{searchText}}</b></p>
-</div> 
+<div *ngIf="searchResponse && !loading">
+    <div *ngIf="items && items.length > 0">
+        <app-categories [categories]="categories"></app-categories>
+        <div class="items-list">
+            <div *ngFor="let item of items;let last = last" class="item-container">
+                <div class="item-content" (click)="navigateToItem(item);">
+                    <div 
+                        [ngStyle]="{'background-image': getUrlImg(item)}"
+                        class="thumbnail"
+                    >
+                    </div>
+                    <div class="price-container">
+                        <p class="price">{{ item.price.currency == "USD" ? "U$D" : "$" }} {{ item.price.amount.toLocaleString() }}<span *ngIf="item.free_shipping"><img src="../../assets/img/ic_shipping.png"/></span></p>
+                        <p class="title">{{ item.title }}</p>
+                    </div>
+                    <div class="address-container">
+                        <p class="address"><span>{{ item.address }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="items && items.length < 1">
+        <div class="items-list empty">
+            <div class="empty-container">
+                <div>
+                    <img src="../../assets/img/ic_Search@2x.png.png" />
+                </div>
+                <div>
+                    <h3>No hay publicaciones que coincidan con tu búsqueda.</h3>
+                    <ul>
+                        <li>Revisá la ortografía de la palabra.</li>
+                        <li>Utilizá palabras más genéricas o menos palabras.</li>
+                        <li>Navegá por las categorías para encontrar un producto similar</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

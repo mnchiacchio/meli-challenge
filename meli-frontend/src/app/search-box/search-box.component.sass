@@ -1,17 +1,38 @@
-@import '../assets/sass/main.sass'
+@import '../../assets/sass/main.sass'
 
 .header-container
     background-color: $color-primary
     .header-navbar
         height: auto
-        max-width: 1200px
         margin: auto
-        padding: 5px 0px
+        padding-top: 5px
+        padding-bottom: 5px
         display: flex
-        justify-content: flex-start
+        justify-content: space-between
         align-items: center
-        input
-            margin-left: 16px
-            font-size: 18px
+        img
+            cursor: pointer
+        div 
+            flex-basis: $search-width
+            height: 40px
+            display: flex
+            align-items: center
+            input
+                flex-basis: 100%
+                font-size: 18px
+                height: $input-height - (2*$input-padding-top)
+                padding: $input-padding
+                border-radius: $input-radius 0px 0px $input-radius
+                border: 0px
+            button
+                border: 0
+                cursor: pointer
+                width: $input-height
+                height: $input-height
+                border-radius: 0px $input-radius $input-radius 0px
+
+        ::placeholder
+            color: $color-grey
+            font-weight: 400
 
     

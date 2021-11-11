@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-box',
@@ -8,13 +8,14 @@ import { NavigationStart, Router } from '@angular/router';
 })
 export class SearchBoxComponent implements OnInit, AfterViewInit {
 
-  @Input()
-  text:string | undefined;
-
   @ViewChild("inputsearch")
   input: ElementRef | undefined;
+  text:string | undefined;
   route: string | undefined;
-  constructor(private router: Router) { 
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+    ) { 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.route = event.url;
@@ -23,8 +24,11 @@ export class SearchBoxComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    
+    this.activatedRoute.queryParams.subscribe((params)=>{
+      this.setTextBasedOnUrl();
+    });
   }
+  
   ngAfterViewInit() {
     if(this.text && this.input){
       this.input.nativeElement.value = this.text;
@@ -33,7 +37,23 @@ export class SearchBoxComponent implements OnInit, AfterViewInit {
 
   search(){
     let textToSearch = this.input?.nativeElement.value || "";
-    if(textToSearch)
+    if( textToSearch )
       this.router.navigate(['/items'], { queryParams: { search: textToSearch } });
+  }
+
+  navigateRoot(){
+    if( this.input )
+      this.input.nativeElement.value = "";
+    this.router.navigate(["/"]);
+  }
+
+  setTextBasedOnUrl() {
+    let url = new URL(location.href);
+    let params:any = url.searchParams;
+    let searchParam = params.get("search");
+    this.text = searchParam || "";
+    if(this.input){
+      this.input.nativeElement.value = this.text;
+    }
   }
 }

@@ -1,0 +1,77 @@
+@import '../../assets/sass/main.sass'
+
+
+.items-list
+    background-color: #FFF
+    display: flex
+    flex-direction: column
+    margin-bottom: $large-padding
+    border-radius: $radius
+
+    &.empty
+        margin: 48px auto
+
+    div.thumbnail
+        @include square(180px)
+        margin-right: $small-padding
+        border-radius: $radius
+        background-position: center
+        background-size: contain
+        background-repeat: no-repeat
+
+    div.price-container
+        flex-basis: 100%
+
+    .item-container
+        position: relative
+
+        &:not(:last-child)::after
+            background-color: $color-background
+            height: 1px
+            z-index: 999
+            content: ""
+            position: absolute
+            bottom: 0
+            right: 20px
+            left: 20px
+
+        .item-content
+            margin: $small-padding
+            display: flex
+            cursor: pointer
+
+        .price
+            font-size: 24px
+            margin: 0
+            padding: $small-padding 0px $large-padding
+            display: flex
+            align-items: flex-start
+
+            img
+                margin-left: $small-padding
+
+        .title
+            margin: 0
+            font-size: 18px
+
+        .address-container
+            flex-basis: 25%
+
+            .address
+                @extend .price
+                span
+                    font-size: 12px
+                    display: flex
+                    align-items: center
+                    color: $color-grey
+                    height: 29px
+    .empty-container
+        display: flex
+        align-items: center
+        width: 80%
+        margin: 0 $large-padding
+
+        img
+            margin: 0 $large-padding
+        h3
+            margin: $large-padding

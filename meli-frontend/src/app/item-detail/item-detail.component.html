@@ -1,2 +1,32 @@
-<p>item-detail works!</p>
-<p>Id del producto <b>{{idItem}}</b></p>
+<div *ngIf="!loading">
+    <div *ngIf="item">
+        <app-categories [categories]="categories"></app-categories>
+        <div class="item-detail">
+            <div class="flex">
+                <div class="img-container">
+                    <img [src]="item.picture"/>
+                    <div class="description-container">
+                        <p class="description-title">Descripción del producto</p>
+                        <p class="description-text">
+                            {{ item.description || "El vendedor no incluyó una descripción del producto" }}
+                        </p>
+                    </div>
+                </div>
+                <div class="buy-container">
+                    <p class="condition">
+                        {{ item.condition == 'new' ? 'Nuevo' : 'Usado'}} - 
+                        {{ item.sold_quantity }} 
+                        {{ item.sold_quantity == 1 ? 'vendido' : 'vendidos' }}
+                    </p>
+                    <p class="title">{{ item.title }}</p>
+                    <p class="price">
+                        {{ item.price.currency == "USD" ? "U$D" : "$" }} 
+                        {{ item.price.amount.toLocaleString() }}</p>
+                    <div class="btn-container">
+                        <button class="btn-primary">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

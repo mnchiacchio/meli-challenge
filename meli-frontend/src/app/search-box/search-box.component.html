@@ -1,9 +1,15 @@
+
 <div class="header-container">
-    <div class="header-navbar">
-        <img src="../../assets/img/Logo_ML.png" />
-        <input #inputsearch type="text" placeholder="Nunca dejes de buscar" (keyup.enter)="search();"/>
+    <div class="header-navbar content">
+        <img src="../../assets/img/Logo_ML.png" (click)="navigateRoot();"/>
+        <div>
+            <input #inputsearch type="text" placeholder="Nunca dejes de buscar" (keyup.enter)="search();"/>
+            <button type="button" class="search-button" (click)="search();">
+                <img src="../../assets/img/ic_Search.png" />
+            </button>
+        </div>
     </div>
 </div>
-<div *ngIf="route !== '/'">
+<div *ngIf="route !== '/'" class="content">
     <router-outlet></router-outlet>
 </div>
