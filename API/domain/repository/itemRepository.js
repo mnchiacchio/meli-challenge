@@ -24,8 +24,6 @@ class ItemRepository {
         let res = {};
         let data = { item, description };
         const response = await this.getResponseItem(data);
-        res.author = response.author;
-        res.item = response.item;
         return response;
     }
 
@@ -49,9 +47,9 @@ class ItemRepository {
         return categories;
     }
   
-    makeItems(id, title, currency, price, picture, condition, free_shipping) {
+    makeItems(id, title, currency, price, picture, condition, free_shipping, address) {
         const priceObj = new PriceModel(currency, price, this.getDecimals(price));
-        const itemModel = new ItemModel(id, title, priceObj, picture, condition, free_shipping);
+        const itemModel = new ItemModel(id, title, priceObj, picture, condition, free_shipping, address);
         return itemModel;
     }
   
@@ -86,16 +84,31 @@ class ItemRepository {
 
         for (let index = 0; index < count; index++) {
             const data = results[index];
-            const itemModel = this.makeItems(data.id, data.title, data.currency_id, data.price, data.thumbnail, data.condition, data.shipping.free_shipping);
+            const itemModel = this.makeItems(data.id, data.title, data.currency_id, data.price, data.thumbnail, data.condition, data.shipping.free_shipping, data.address.state_name);
             itemsList.push(itemModel);
         }
         return { author, categories, items: itemsList };
     }
   
     async getResponseItem({ item, description }) {
+        let category_id = ""
+        if(item){
+            category_id = item.category_id;
+        }
+        const categories = await this.makeCategories(category_id);
         const author = this.getAuthor();
-        const itemDetailModel = this.makeItemsExtended(item.id, item.title, item.currency_id, item.price, item.pictures[0].url, item.condition, item.shipping.free_shipping, item.sold_quantity, description.plain_text);
-        return { author: author, item: itemDetailModel };
+        const itemDetailModel = this.makeItemsExtended(
+            item.id, 
+            item.title, 
+            item.currency_id, 
+            item.price, 
+            item.pictures[0].url, 
+            item.condition, 
+            item.shipping.free_shipping, 
+            item.sold_quantity, 
+            description.plain_text
+            );
+        return { author, categories, item: itemDetailModel};
     }
   }
   
