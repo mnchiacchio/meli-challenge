@@ -3,15 +3,16 @@
         <app-categories [categories]="categories"></app-categories>
         <div class="items-list">
             <div *ngFor="let item of items;let last = last" class="item-container">
-                <div class="item-content" (click)="navigateToItem(item);">
+                <div class="item-content">
                     <div 
                         [ngStyle]="{'background-image': getUrlImg(item)}"
-                        class="thumbnail"
+                        class="thumbnail pointer"
+                        (click)="navigateToItem(item);"
                     >
                     </div>
                     <div class="price-container">
                         <p class="price">{{ item.price.currency == "USD" ? "U$D" : "$" }} {{ item.price.amount.toLocaleString() }}<span *ngIf="item.free_shipping"><img src="../../assets/img/ic_shipping.png"/></span></p>
-                        <p class="title">{{ item.title }}</p>
+                        <p class="title pointer"  (click)="navigateToItem(item);">{{ item.title }}</p>
                     </div>
                     <div class="address-container">
                         <p class="address"><span>{{ item.address }}</span></p>

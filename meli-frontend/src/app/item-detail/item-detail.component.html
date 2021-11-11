@@ -29,4 +29,10 @@
             </div>
         </div>
     </div>
+    <div *ngIf="item === undefined">
+        <div class="item-detail not-found">
+            <h3>Parece que esta página no existe</h3>
+            <a [routerLink]="['/']" >Ir al inicio</a>
+        </div>
+    </div>
 </div>
