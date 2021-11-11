@@ -27,14 +27,25 @@ class ItemService {
 
         try {
             const itemResponse = await axios.get(urlItem);
-            const itemDetailResponse = await axios.get(urlItemDetail);
+            let itemDetailResponse
+            try {
+                itemDetailResponse = await axios.get(urlItemDetail);
+            } catch (error) {
+                if(error.response.data.status == 404 && error.response.data.error == 'not_found'){
+                    const data = { plain_text: null };
+                    itemDetailResponse = { data }
+                }
+            }
+            
             if (itemResponse && itemDetailResponse) {
-                
                 const result = await this._itemRepository.makeResponseItem(
                     itemResponse.data,
                     itemDetailResponse.data
                 );
                 return result;
+            }
+            else{
+                return [];
             }
         } catch (error) {
             return error.response.data;
